@@ -1,29 +1,30 @@
+require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 5000;
+const mongoURI = process.env.MONGODB_URI || "";
+const mongoDB = process.env.MONGODB_DB || "";
+const mongoCollection = process.env.MONGODB_COLLECTION || "";
 
 // Connect to MongoDB
-mongoose.connect(
-  `mongodb+srv://admin:!A7xrules!@fitnessapp.66ifsxi.mongodb.net/?retryWrites=true&w=majority`,
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  }
-);
+mongoose.connect(mongoURI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 const dataSchema = new mongoose.Schema({
   _id: mongoose.Schema.Types.ObjectId, // Use ObjectId for _id
   name: String,
   artist: String,
-  songs: [String], // Array of strings for songs
 });
 
-const DataModel = mongoose.model("test", dataSchema);
+// Create a model from the schema
+const DataModel = mongoose.model(mongoDB, dataSchema, mongoCollection);
 
 // Express route to fetch data from MongoDB
-app.get("/api/data", async (req, res) => {
+app.get("/albums/", async (req, res) => {
   try {
     // Fetch data from MongoDB
     const data = await DataModel.find();
