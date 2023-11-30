@@ -12,3 +12,4 @@ npm i --save-dev nodemon
 ## Host
 
 Heroku
+configure .env file in Heroku Config Variables
