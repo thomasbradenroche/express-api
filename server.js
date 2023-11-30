@@ -24,7 +24,7 @@ const dataSchema = new mongoose.Schema({
 const DataModel = mongoose.model(mongoDB, dataSchema, mongoCollection);
 
 // Express route to fetch data from MongoDB
-app.get("/albums/", async (req, res) => {
+app.get("/", async (req, res) => {
   try {
     // Fetch data from MongoDB
     const data = await DataModel.find();
